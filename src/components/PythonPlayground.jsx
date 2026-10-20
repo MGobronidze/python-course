@@ -1,22 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Play, Loader2, RotateCcw } from 'lucide-react'
 
-// Pyodide ინსტანციას ვინახავთ მოდულის დონეზე, რომ ყველა playground-მა
-// გამოიყენოს ერთი და იგივე ჩატვირთული ძრავა — არ დავტვირთოთ თავიდან ყოველ ჯერზე.
-let pyodideSingleton = null
-let pyodideLoadingPromise = null
-
-async function getPyodide(onStatus) {
-  if (pyodideSingleton) return pyodideSingleton
-  if (!pyodideLoadingPromise) {
-    onStatus?.('იტვირთება Python ძრავა (Pyodide)... ეს პირველად შეიძლება 10-20 წამი გასტანოს.')
-    pyodideLoadingPromise = window.loadPyodide().then((py) => {
-      pyodideSingleton = py
-      return py
-    })
-  }
-  return pyodideLoadingPromise
-}
+import { getPyodide, runInFreshNamespace } from '../pyodideLoader.js'
 
 export default function PythonPlayground({ starterCode, exerciseKey }) {
   const [code, setCode] = useState(starterCode || '')
@@ -48,7 +33,7 @@ export default function PythonPlayground({ starterCode, exerciseKey }) {
         batched: (msg) => setOutput((prev) => prev + msg + '\n'),
       })
 
-      await py.runPythonAsync(code)
+      await runInFreshNamespace(py, code)
       setStatus('idle')
     } catch (err) {
       setOutput((prev) => prev + '\n' + String(err))

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Clock, Lightbulb, Code2, Dumbbell, Rocket, ListChecks, Construction } from 'lucide-react'
 import PythonPlayground from './PythonPlayground.jsx'
+import TurtlePlayground from './TurtlePlayground.jsx'
 import Quiz from './Quiz.jsx'
 import { lessonContentMap } from '../data/lessons.js'
 
@@ -47,6 +48,9 @@ export default function LessonView({ lesson }) {
     return <ComingSoon lesson={lesson} />
   }
 
+  // შეხვედრას შეუძლია აირჩიოს Playground-ის ტიპი: c.playground === 'turtle'
+  const Playground = c.playground === 'turtle' ? TurtlePlayground : PythonPlayground
+
   return (
     <div className="pop-in max-w-3xl mx-auto pb-20">
       <header className="mb-8">
@@ -91,7 +95,7 @@ export default function LessonView({ lesson }) {
           {c.codeExamples.map((ex, i) => (
             <div key={i}>
               <p className="text-sm font-semibold text-ink/70 mb-2">{ex.title}</p>
-              <PythonPlayground starterCode={ex.code} exerciseKey={`demo-${lesson.id}-${i}`} />
+              <Playground starterCode={ex.code} exerciseKey={`demo-${lesson.id}-${i}`} />
             </div>
           ))}
         </div>
@@ -117,7 +121,7 @@ export default function LessonView({ lesson }) {
           <div>
             <p className="font-semibold text-ink mb-1">{c.exercises[activeExercise].title}</p>
             <p className="text-ink/80 mb-3">{c.exercises[activeExercise].prompt}</p>
-            <PythonPlayground
+            <Playground
               starterCode={c.exercises[activeExercise].starter}
               exerciseKey={`ex-${lesson.id}-${activeExercise}`}
             />
