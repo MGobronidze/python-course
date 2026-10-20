@@ -26,7 +26,7 @@ export const lessons = [
   { id: 18, block: 'basics', type: 'theory', title: 'map / filter / reduce, *args და **kwargs', subtitle: 'ფუნქციონალური პროგრამირების საფუძვლები', full: true },
   { id: 19, block: 'basics', type: 'theory', title: 'სტრიქონების მანიპულაცია', subtitle: 'formatting, split, replace, f-strings', full: true },
   { id: 20, block: 'basics', type: 'project', title: 'გამეორება + პროექტი: ტექსტური თავგადასავალი', subtitle: 'ფუნქციები + სტრიქონები ერთად', full: true },
-  { id: 21, block: 'basics', type: 'theory', title: 'მოდულები და ბიბლიოთეკები', subtitle: 'math, random, datetime, pip' },
+  { id: 21, block: 'basics', type: 'theory', title: 'მოდულები და ბიბლიოთეკები', subtitle: 'math, random, datetime, pip', full: true },
   { id: 22, block: 'basics', type: 'theory', title: 'Turtle გრაფიკა', subtitle: 'ვიზუალური პროგრამირება — ნახატები კოდით', full: true },
   { id: 23, block: 'basics', type: 'theory', title: 'ფაილებთან მუშაობა', subtitle: 'open, read, write, close', full: true },
   { id: 24, block: 'basics', type: 'theory', title: 'შეცდომების დამუშავება', subtitle: 'try, except, finally' },
@@ -1760,6 +1760,102 @@ export const lesson20Content = {
 }
 
 // ==========================================================================
+// შეხვედრა #21 — სრული შიგთავსი
+// ==========================================================================
+
+export const lesson21Content = {
+  agenda: [
+    { time: '00:00 – 00:15', title: 'თეორია და ანალოგიები', desc: 'მოდული როგორც "ხელსაწყოების ყუთი", import-ის სამი სტილი და pip როგორც Python-ის "აპლიკაციების მაღაზია".' },
+    { time: '00:15 – 00:35', title: 'კოდი და დემო', desc: 'math, random და datetime მოდულების ცოცხალი დემო.' },
+    { time: '00:35 – 00:50', title: 'პრაქტიკა და ქვიზი', desc: '3-დონიანი სავარჯიშოები Playground-ში + თვითშემოწმების ქვიზი.' },
+    { time: '00:50 – 01:00', title: 'გამოწვევა', desc: 'დამოუკიდებელი მინი-ამოცანა შემდეგ გაკვეთილამდე.' },
+  ],
+  theory: [
+    {
+      heading: 'მოდული — "ხელსაწყოების ყუთი"',
+      text: 'წარმოიდგინე, რომ სახლში რამე უნდა გააკეთო. ყოველი ინსტრუმენტის (ჩაქუჩის, ხრახნისმჭრელის) თვითონ დამზადება ზედმეტი შრომა იქნებოდა, ამიტომ მზა ხელსაწყოების ყუთს იღებ. Python-შიც ასეა: ვიღაცებმა უკვე დაწერეს ათასობით გამოსადეგი ფუნქცია და ისინი "ყუთებში" (მოდულებში) შეფუთეს. შენ მხოლოდ ყუთი უნდა გახსნა და გამოიყენო. მათემატიკისთვის არსებობს `math`, შემთხვევითობისთვის `random`, თარიღისა და დროისთვის `datetime`.',
+    },
+    {
+      heading: 'import — ყუთის გახსნა',
+      text: 'მოდულს ვხსნით სიტყვით `import`: `import math` და შემდეგ ფუნქციებს წერტილით ვიძახებთ — `math.sqrt(16)`. თუ მხოლოდ ერთი რამ გვჭირდება, შეგვიძლია ცალკე ავიღოთ: `from math import sqrt`, შემდეგ კი პირდაპირ `sqrt(16)` გვეყოფა. გრძელი სახელის შესამოკლებლად კი არსებობს მეტსახელი: `import math as m`, და ვწერთ `m.sqrt(16)`.',
+    },
+    {
+      heading: 'სამი სასარგებლო მოდული',
+      text: '`math` გვაძლევს რიცხვ π-ს (`math.pi`), ფესვს (`sqrt`), დამრგვალებას ზევით და ქვევით (`ceil`, `floor`). `random` ქმნის შემთხვევით რიცხვებს და არჩევანს: `randint(1, 6)` გვაძლევს რიცხვს 1-დან 6-მდე (ორივე ბოლო შედის, რაც განსხვავდება range()-სგან!), `choice(სია)` ირჩევს შემთხვევით ელემენტს, `shuffle(სია)` ურევს სიას. `datetime` კი გვეხმარება დროსა და თარიღთან: `datetime.now()` მიმდინარე დროს აბრუნებს, ხოლო ორი თარიღის გამოკლებით დღეების განსხვავებას ვიგებთ.',
+    },
+    {
+      heading: 'pip — Python-ის "აპლიკაციების მაღაზია"',
+      text: 'math, random და datetime Python-ს თავიდანვე თან ახლავს. მაგრამ არსებობს უფრო მეტი ბიბლიოთეკა, რომლებიც ცალკე უნდა ჩამოვტვირთოთ — მაგალითად თამაშების შესაქმნელად `pygame`. ამისთვის გვაქვს `pip`, ინსტრუმენტი, რომელიც ბიბლიოთეკას ინტერნეტიდან ჩამოტვირთავს და დააინსტალირებს. ის ტერმინალში გამოიყენება: `pip install pygame`. Thonny-ში იგივეს მენიუდან აკეთებ: Tools → Manage packages. ჩვენს ბრაუზერულ Playground-ში pip-ის გაშვება არ შეგვიძლია, ამიტომ ამ ნაწილს შენს კომპიუტერზე სცდი.',
+    },
+  ],
+  codeExamples: [
+    {
+      title: 'math მოდული და import-ის სამი სტილი',
+      code: `import math\nfrom math import sqrt\nimport math as m\n\nprint(math.sqrt(49))\nprint(sqrt(81))\nprint(m.pi)\nprint(math.ceil(4.2), math.floor(4.8))\n\nradius = 5\nprint("წრის ფართობი:", round(math.pi * radius ** 2, 2))`,
+    },
+    {
+      title: 'random მოდული — კამათელი და შემთხვევითი არჩევანი',
+      code: `import random\n\nprint("კამათელი:", random.randint(1, 6))\n\nfruits = ["ვაშლი", "ბანანი", "მანდარინი", "ატამი"]\nprint("შემთხვევითი ხილი:", random.choice(fruits))\n\nrandom.shuffle(fruits)\nprint("არეული სია:", fruits)`,
+    },
+    {
+      title: 'datetime მოდული — დრო და თარიღები',
+      code: `from datetime import datetime, date\n\nnow = datetime.now()\nprint("ახლა:", now.strftime("%d.%m.%Y %H:%M"))\nprint("წელი:", now.year)\n\nbirthday = date(2012, 5, 20)\ntoday = date.today()\nprint("დაბადებიდან გავიდა", (today - birthday).days, "დღე")`,
+    },
+  ],
+  exercises: [
+    {
+      level: 'Easy',
+      title: 'კამათლის სამჯერ გაგორება',
+      prompt: 'გამოიყენე random.randint(1, 6) და for ციკლი, რომ კამათელი სამჯერ გააგორო. თითოეული შედეგი დაბეჭდე ტექსტით, მაგ. "გორება 1: 4".',
+      starter: `import random\n\n# დაწერე for ციკლი აქ\n`,
+    },
+    {
+      level: 'Medium',
+      title: 'გეომეტრიის კალკულატორი',
+      prompt: 'math მოდულით გამოთვალე: წრის სიგრძე ფორმულით 2 * π * radius და სამკუთხედის ჰიპოტენუზა ფორმულით sqrt(a**2 + b**2). შედეგები დაამრგვალე round(..., 2)-ით და დაბეჭდე.',
+      starter: `import math\n\nradius = 7\na = 3\nb = 4\n\n# გამოთვალე წრის სიგრძე და ჰიპოტენუზა\n`,
+    },
+    {
+      level: 'Challenge',
+      title: 'პაროლის გენერატორი',
+      prompt: 'დაწერე ფუნქცია make_password(length), რომელიც სიმბოლოების characters სტრიქონიდან random.choice-ით ირჩევს length ცალ სიმბოლოს for ციკლში და აბრუნებს მათგან შედგენილ პაროლს. გამოიძახე ის სამჯერ: სიგრძეებით 6, 8 და 12. (ეს სასწავლო მაგალითია, რეალური პაროლებისთვის სპეციალურ უსაფრთხო ხელსაწყოებს იყენებენ.)',
+      starter: `import random\n\ncharacters = "abcdefghijklmnopqrstuvwxyz0123456789"\n\ndef make_password(length):\n    # შეაგროვე პაროლი for ციკლით და დააბრუნე\n    pass\n\nprint(make_password(6))\nprint(make_password(8))\nprint(make_password(12))\n`,
+    },
+  ],
+  quiz: [
+    {
+      question: 'რა უნდა დავწეროთ, რომ math.sqrt() გამოვიყენოთ?',
+      options: ['import math', 'include math', 'using math', 'open math'],
+      correctIndex: 0,
+    },
+    {
+      question: 'რას აბრუნებს random.randint(1, 6)?',
+      options: [
+        'მხოლოდ 1-დან 5-მდე რიცხვს',
+        'მთელ რიცხვს 1-დან 6-მდე, ორივე ბოლოს ჩათვლით',
+        'წილადს 1-სა და 6-ს შორის',
+        'ყოველთვის 6-ს',
+      ],
+      correctIndex: 1,
+    },
+    {
+      question: 'რისთვის გამოიყენება pip?',
+      options: [
+        'კოდის სწრაფად გასაშვებად',
+        'დამატებითი ბიბლიოთეკების ინტერნეტიდან ჩამოსატვირთად და დასაინსტალირებლად',
+        'ფაილების წასაშლელად',
+        'შეცდომების გასასწორებლად',
+      ],
+      correctIndex: 1,
+    },
+  ],
+  challenge: {
+    title: 'დამოუკიდებელი გამოწვევა',
+    prompt: 'დაწერე პროგრამა, რომელიც datetime მოდულით ითვლის, რამდენი დღე დარჩა მიმდინარე წლის დასრულებამდე (ეს არის date(today.year, 12, 31)-სა და დღევანდელ თარიღს შორის სხვაობა). შედეგი დაბეჭდე f-string-ით. ბონუსი: დაამატე random.choice-ით შემთხვევითი მოტივაციური ფრაზა სიიდან.',
+  },
+}
+
+// ==========================================================================
 // შეხვედრა #22 — სრული შიგთავსი
 // playground: 'turtle' — ამ შეხვედრაზე კოდის რედაქტორთან ერთად ჩანს canvas,
 // სადაც turtle-ის ნახატები იხატება (იხ. TurtlePlayground.jsx)
@@ -1971,6 +2067,7 @@ export const lessonContentMap = {
   18: lesson18Content,
   19: lesson19Content,
   20: lesson20Content,
+  21: lesson21Content,
   22: lesson22Content,
   23: lesson23Content,
 }
